@@ -70,3 +70,33 @@ console.log(aaron.species, matilda.species, ron.species); //inherited the protot
 
 console.log(aaron.hasOwnProperty('firstName')); //true
 console.log(aaron.hasOwnProperty('species')) //false b/c prototype property of Person
+
+//Rewatch Prototypal Inheritance and Prototype Chain 
+// console.log(aaron.__proto__);
+
+// const arr = [3, 6, 4, 5, 6, 9, 3];
+// console.log(arr.__proto__);
+// console.log(arr.__proto__ === Array.prototype); //true
+// console.log(arr.__proto__.__proto__);
+
+///////////Coding Challenge #1 
+const car = function(carMake, speed) {
+    this.carMake = carMake;
+    this.speed = speed; 
+}
+const beemer = new car('bmw', 550);
+const benz = new car('mercedes', 525);
+//console.log(beemer, benz);
+
+car.prototype.accelerate = function () {
+    this.speed += 10;
+    console.log(`${this.carMake} has ${this.speed} horse power when accelerating.`)
+}
+car.prototype.break = function () {
+    this.speed -= 5;
+    console.log(`${this.carMake} has ${this.speed} horse power when breaking.`) 
+}
+beemer.accelerate();
+beemer.break();
+benz.accelerate();
+benz.break();
