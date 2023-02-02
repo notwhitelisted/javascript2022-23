@@ -257,6 +257,8 @@ objects are linked to prototype object;
 // ford.speedUS = 50;
 // console.log(ford.speedUS);
 
+
+///////////////inheritance between classes: constructor functions
 const Person = function (firstName, birthYear) {
     this.firstName = firstName;
     this.birthYear = birthYear;
@@ -332,3 +334,67 @@ tesla.chargeBattery(90);
 console.log(tesla);
 tesla.brake();
 tesla.accelerate();
+
+/////////////////inheritance between classes: es6 classes
+class PersonClass {
+    constructor(firstName, birthYear) {
+        this.firstName = firstName;
+        this.birthYear = birthYear;
+    }
+    //methods will be added to .prototype property
+    calcAge() {
+        console.log(2023 - this.birthYear);
+    }
+    //option 2 - can write it inside the class object because it allows it to.
+    greet() {
+        console.log(`hey ${this.firstName}`);
+    }
+
+    get age() {
+        return 2025 - this.birthYear;
+    }
+
+    get fullName() {
+        return this.fullName;
+    }
+
+    //when you set, you need a get. 
+    set fullName(name) {
+        if (name.includes(' ')) {
+            this.fullName = name;
+        } else {
+            alert(`${name} is not a full name.`)
+        }
+    }
+
+    //static method
+    static hi() {
+        console.log('hiya');
+        console.log(this);
+    }
+}
+
+//linking using 'extends' keyword
+class StudentClass extends PersonClass{
+    constructor(fullName, birthYear, course) {
+        
+        //super - needs to happen first --> calls to parent class constructor 
+        super(fullName, birthYear)
+        this.course = course; 
+    }
+
+    introduction() {
+        console.log(`my name is ${this.fullName} and i am studying ${this.course}`);
+    }
+
+    calcAge() {
+        console.log(`i'm ${2023 - this.birthYear} years old, but as a student i feel like more ${2023 - this.birthYear + 10}`);
+    }
+}
+
+const martha = new StudentClass('martha jones', 2004, 'computer science');
+console.log(martha);
+//martha.introduction();
+martha.calcAge();
+
+
