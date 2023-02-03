@@ -33,7 +33,6 @@ objects are linked to prototype object;
 */
 
 ///////////Constructor Functions and New Operator
-<<<<<<< HEAD
 // const Person = function(firstName, birthYear) {
 //     //instance properties 
 //     this.firstName = firstName;
@@ -43,17 +42,6 @@ objects are linked to prototype object;
 //         console.log(2023 - this.birthYear);
 //     }
 // }
-=======
-const Person = function(firstName, birthYear) {
-    //instance properties 
-    this.firstName = firstName;
-    this.birthYear = birthYear;
-
-    this.calcAge = function() {
-        console.log(2023 - this.birthYear);
-    }
-}
->>>>>>> 1162c9d3d46dd6b90aaa2af406a3825284cc5895
 // const aaron = new Person('Aaron', 1999);
 // console.log(aaron);
 
@@ -122,7 +110,6 @@ const Person = function(firstName, birthYear) {
 
 //class declaration - with this class keyword - can combine functions + constructor functions within the same class
 //both will be prototypes of the class
-<<<<<<< HEAD
 // class PersonClass {
 //     constructor(firstName, birthYear) {
 //         this.firstName = firstName;
@@ -349,8 +336,6 @@ tesla.brake();
 tesla.accelerate();
 
 /////////////////inheritance between classes: es6 classes
-=======
->>>>>>> 1162c9d3d46dd6b90aaa2af406a3825284cc5895
 class PersonClass {
     constructor(firstName, birthYear) {
         this.firstName = firstName;
@@ -369,7 +354,6 @@ class PersonClass {
         return 2025 - this.birthYear;
     }
 
-<<<<<<< HEAD
     get fullName() {
         return this.fullName;
     }
@@ -377,30 +361,18 @@ class PersonClass {
     //when you set, you need a get. 
     set fullName(name) {
         if (name.includes(' ')) {
-=======
-    //when you set, you need a get. 
-    set fullName(name) {
-        if (name.includes()) {
->>>>>>> 1162c9d3d46dd6b90aaa2af406a3825284cc5895
             this.fullName = name;
         } else {
             alert(`${name} is not a full name.`)
         }
     }
 
-<<<<<<< HEAD
-=======
-    get fullName() {
-        return this.fullName;
-    }
->>>>>>> 1162c9d3d46dd6b90aaa2af406a3825284cc5895
     //static method
     static hi() {
         console.log('hiya');
         console.log(this);
     }
 }
-<<<<<<< HEAD
 
 //linking using 'extends' keyword
 class StudentClass extends PersonClass{
@@ -426,58 +398,6 @@ console.log(martha);
 martha.calcAge();
 
 /////////////////////////inheritance etween classes: object.create
-=======
-const jessica = new PersonClass('jessica', 1997) //new instance created. will run the constructor function in class declaration/expression
-console.log(jessica);
-jessica.calcAge();
-console.log(jessica.age);
-
-// option 1 - write it outside of the class object 
-PersonClass.prototype.greet = function () {
-    console.log(`hey ${this.firstName}`);
-};
-jessica.greet();
-
-/*
-1. classes are not hoisted
-2. classes are first-class citizens
-3. classes are executed in strict mode
-*/
-
-///////////Setters and Getters Properties
-//functions that set and get a value. on outside, they look like regular properties
-
-const account = {
-    owner: 'aaron',
-    movements: [200, 540, 120, 300],
-
-    get latest() {
-        return this.movements.slice(-1).pop();
-    },
-    //requires argument. 
-    set latest(mov) {
-        this.movements.push(mov);
-    }
-}
-
-console.log(account.latest); //writing the function in the class/object as a property, rather than as a function
-account.latest = 50;
-console.log(account);
-console.log(account.movements)
-
-/////////////Static Methods
-// methods that are work on static objects/constructor functions and not on prototypes
-
-Person.hey = function() {
-    console.log('hi there!');
-    console.log(this);
-};
-Person.hey();
-
-PersonClass.hi();
-
-//////////Object create- good for true class inheritance 
->>>>>>> 1162c9d3d46dd6b90aaa2af406a3825284cc5895
 const PersonProto = {
     calcAge() {
         console.log(2023 - this.birthYear);
@@ -489,7 +409,6 @@ const PersonProto = {
     }  
 }
 
-<<<<<<< HEAD
 const steven = Object.create(PersonProto);
 
 const StudentProto = Object.create(PersonProto);
@@ -518,17 +437,3 @@ class Account {
 
 const acc1 = new Account('aaron', 'usd', '1111');
 console.log(acc1);
-=======
-const steve = Object.create(PersonProto);
-console.log(steve);
-
-steve.name = 'steve';
-steve.birthYear = 2005;
-steve.calcAge();
-
-const sara = Object.create(PersonProto);
-console.log(sara);
-sara.init('Sara Wilson', 1999)
-sara.calcAge();
-
->>>>>>> 1162c9d3d46dd6b90aaa2af406a3825284cc5895

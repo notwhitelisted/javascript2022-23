@@ -458,11 +458,7 @@ h4 {
 }
 
 .dots__dot--active {
-<<<<<<< HEAD
-  /*background-color: #fff;*/
-=======
   /* background-color: #fff; */
->>>>>>> 1162c9d3d46dd6b90aaa2af406a3825284cc5895
   background-color: #888;
   opacity: 1;
 }
