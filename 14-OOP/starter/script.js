@@ -482,20 +482,44 @@ class Account {
         this.owner = owner;
         this.currency = currency;
         this.pin = pin;
+        this.movements = [];
+        this.locale = navigator.language;
+        
+        console.log(`thanks for opening an account!, ${owner}`);
+    }
+
+    //public interface
+    deposit(value) {
+        this.movements.push(value);
+    }
+
+    withdraw(value) {
+        this.deposit(-value);
+    }
+
+    approveLoan(value) {
+        return true;
+    }
+
+    requestLoan(value) {
+        if (this.approveLoan(value)) {
+            this.deposit(value);
+            console.log(`loan approved`);
+        }
     }
 }
 
 const acc1 = new Account('aaron', 'usd', '1111');
 console.log(acc1);
-const steve = Object.create(PersonProto);
-console.log(steve);
 
-steve.name = 'steve';
-steve.birthYear = 2005;
-steve.calcAge();
+// acc1.movements.push(250);
+// acc1.movements.push(-140);
 
-const sara = Object.create(PersonProto);
-console.log(sara);
-sara.init('Sara Wilson', 1999)
-sara.calcAge();
+acc1.deposit(250);
+acc1.withdraw(140);
+acc1.requestLoan(1000);
+acc1.approveLoan(1000);
 
+console.log(acc1);
+
+console.log(acc1.pin);
