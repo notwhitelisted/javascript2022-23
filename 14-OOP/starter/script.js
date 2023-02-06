@@ -220,30 +220,30 @@ const Person = function(firstName, birthYear) {
 // sara.calcAge();
 
 ////////////Coding Challenge #2
-// class carBuild {
-//     constructor(make, speed) {
-//         this.make = make;
-//         this.speed = speed;
-//     }
+class carBuild {
+    constructor(make, speed) {
+        this.make = make;
+        this.speed = speed;
+    }
 
-//     accelerate () {
-//         this.speed += 10;
-//         console.log(`${this.make} is going at ${this.speed} km/h`)
-//     }
+    accelerate () {
+        this.speed += 10;
+        console.log(`${this.make} is going at ${this.speed} km/h`)
+    }
     
-//     break () {
-//         this.speed -= 5;
-//         console.log(`${this.make} is going at ${this.speed} km/h`)
-//     }
+    break () {
+        this.speed -= 5;
+        console.log(`${this.make} is going at ${this.speed} km/h`)
+    }
 
-//     get speedUS() {
-//         return this.speed / 1.6;
-//     }
+    get speedUS() {
+        return this.speed / 1.6;
+    }
 
-//     set speedUS(speed) {
-//         return this.speed = speed * 1.6;
-//     }
-// }
+    set speedUS(speed) {
+        return this.speed = speed * 1.6;
+    }
+}
 
 // const ford = new carBuild('ford', 120);
 // console.log(ford);
@@ -524,7 +524,6 @@ jay.calcAge();
 
 // console.log(acc1.pin);
 
-
 // Encapsulation: Protected Properties and Methods
 // Encapsulation: Private Class Fields and Methods
 
@@ -533,82 +532,112 @@ jay.calcAge();
 // 3) Public methods
 // 4) Private methods
 // (there is also the static version)
-
 class Account {
-    // 1) Public fields (instances)
-    locale = navigator.language;
+  // 1) Public fields (instances)
+  locale = navigator.language;
   
-    // 2) Private fields (instances)
-    #movements = [];
-    #pin;
+  // 2) Private fields (instances)
+  #movements = [];
+  #pin; //declared outside
   
-    constructor(owner, currency, pin) {
-      this.owner = owner;
-      this.currency = currency;
-      this.#pin = pin;
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.#pin = pin; 
+
+    // Protected property
+    // this._movements = [];
+    // this.locale = navigator.language;
   
-      // Protected property
-      // this._movements = [];
-      // this.locale = navigator.language;
+    console.log(`Thanks for opening an account, ${owner}`);
+  }
   
-      console.log(`Thanks for opening an account, ${owner}`);
-    }
+  // 3) Public methods
   
-    // 3) Public methods
+  // Public interface
+  getMovements() {
+    return this.#movements;
+  }
   
-    // Public interface
-    getMovements() {
-      return this.#movements;
-    }
+  deposit(val) {
+    this.#movements.push(val);
+    return this;
+  }
   
-    deposit(val) {
-      this.#movements.push(val);
+  withdraw(val) {
+    this.deposit(-val);
+    return this;
+  }
+  
+  requestLoan(val) {
+    // if (this.#approveLoan(val)) {
+    if (this._approveLoan(val)) {
+      this.deposit(val);
+      console.log(`Loan approved`);
       return this;
-    }
-  
-    withdraw(val) {
-      this.deposit(-val);
-      return this;
-    }
-  
-    requestLoan(val) {
-      // if (this.#approveLoan(val)) {
-      if (this._approveLoan(val)) {
-        this.deposit(val);
-        console.log(`Loan approved`);
-        return this;
-      }
-    }
-  
-    static helper() {
-      console.log('Helper');
-    }
-  
-    // 4) Private methods
-    // #approveLoan(val) {
-    _approveLoan(val) {
-      return true;
     }
   }
+  
+  static helper() {
+    console.log('Helper');
+  }
+  
+  // 4) Private methods
+  // #approveLoan(val) {
+  _approveLoan(val) {
+    return true;
+  }
+}
 
-  const acc1 = new Account('aaron', 'EUR', 1111);
+const acc1 = new Account('aaron', 'EUR', 1111);
 
-  // acc1._movements.push(250);
-  // acc1._movements.push(-140);
-  // acc1.approveLoan(1000);
+// acc1._movements.push(250);
+// acc1._movements.push(-140);
+// acc1.approveLoan(1000);
   
-  acc1.deposit(250);
-  acc1.withdraw(140);
-  acc1.requestLoan(1000);
-  console.log(acc1.getMovements());
-  console.log(acc1);
-  Account.helper();
+acc1.deposit(250);
+acc1.withdraw(140);
+acc1.requestLoan(1000);
+console.log(acc1.getMovements());
+console.log(acc1);
+Account.helper();
   
-  // console.log(acc1.#movements);
-  // console.log(acc1.#pin);
-  // console.log(acc1.#approveLoan(100));
-  
-  // Chaining
-  acc1.deposit(300).deposit(500).withdraw(35).requestLoan(25000).withdraw(4000);
-  console.log(acc1.getMovements());
-  //
+// console.log(acc1.#movements); undefined because cannot access this property outside of the class because of # symbol.
+// console.log(acc1.#pin); cannot access this property outside of the class because of # symbol.
+// console.log(acc1.#approveLoan(100));
+
+// Chaining
+acc1.deposit(300).deposit(500).withdraw(35).requestLoan(25000).withdraw(4000);
+console.log(acc1.getMovements());
+//
+
+//////////////////////coding challenge #4
+class EVCl extends carBuild {
+    #charge;
+
+
+    constructor(make, speed, charge) {
+        super(make, speed);
+        this.#charge = charge;
+    }
+
+    chargeBattery(chargeTo) {
+        this.#charge = chargeTo;
+        return this;
+    }
+
+    accelerate() {
+        this.speed += 20;
+        this.#charge--;
+        console.log(`${this.make} is going at ${this.speed} km/h, with a charge of ${this.#charge}`);
+        return this;
+    }
+
+}
+
+const rivian = new EVCl('rivian', 120, 23);
+console.log(rivian);
+//console.log(rivian.#charge); //will not work because private field cannot be accessed from outside of class
+
+rivian.accelerate().accelerate().accelerate().brake().chargeBattery(50).accelerate();
+console.log(rivian.speedUS);
