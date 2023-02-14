@@ -273,6 +273,7 @@ const whereAmI = function () {
     .then(pos => {
       const { latitude: lat, longitude: lng } = pos.coords;
 
+      //chaining new promise
       return fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`);
     })
     .then(res => {
@@ -354,8 +355,6 @@ const getPosition = function () {
   });
 };
 
-// fetch(`https://restcountries.eu/rest/v2/name/${country}`).then(res => console.log(res))
-
 const whereAmI = async function () {
   try {
     // Geolocation
@@ -373,19 +372,15 @@ const whereAmI = async function () {
     const res = await fetch(
       `https://restcountries.eu/rest/v2/name/${dataGeo.country}`
     );
-    
-    // BUG in video:
-    // if (!resGeo.ok) throw new Error('Problem getting country');
-    
-    // FIX:
+
     if (!res.ok) throw new Error('Problem getting country');
 
     const data = await res.json();
     console.log(data);
     renderCountry(data[0]);
   } catch (err) {
-    console.error(`${err} 💥`);
-    renderError(`💥 ${err.message}`);
+    console.error(`${err}`);
+    renderError(`${err.message}`);
   }
 };
 whereAmI();
