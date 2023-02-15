@@ -118,19 +118,19 @@ const countriesContainer = document.querySelector('.countries');
 // const request = fetch(`https://restcountries.com/v3.1/name/portugal`)
 // console.log(request); //promise pending
 
-// const getJSON = function(url, errorMsg = 'Something went wrong') {
-//   return fetch(url).then((response) => {
-//     if (!response.ok) {
-//       throw new Error(`Country not found ${response.status}`);
-//       return response.json();
-//     }
-//   });
-// }
+const getJSON = function(url, errorMsg = 'Something went wrong') {
+  return fetch(url).then((response) => {
+    if (!response.ok) {
+      throw new Error(`Country not found ${response.status}`);
+      return response.json();
+    }
+  });
+}
 
-// const renderError = function(msg) {
-//   countriesCountainer.insertAdjacentText('beforeend', msg);
-//   countriesCountainer.style.opacity = 1
-// }
+const renderError = function(msg) {
+  countriesCountainer.insertAdjacentText('beforeend', msg);
+  countriesCountainer.style.opacity = 1
+}
 
 /////////////////consuming promises
 // const getCountryData = function(country) {
@@ -378,15 +378,20 @@ const whereAmI = async function () {
     const data = await res.json();
     console.log(data);
     renderCountry(data[0]);
+
+    return `you are in ${dataGeo.city}, ${dataGeo.country}`;
   } catch (err) {
     console.error(`${err}`);
     renderError(`${err.message}`);
+
+    //reject promise returned from async function
+    throw err;
   }
 };
-whereAmI();
-whereAmI();
-whereAmI();
-console.log('FIRST');
+// whereAmI();
+// whereAmI();
+// whereAmI();
+// console.log('FIRST');
 
 // try {
 //   let y = 1;
@@ -395,3 +400,42 @@ console.log('FIRST');
 // } catch (err) {
 //   alert(err.message);
 // }
+
+//////////////////////Return Values from Async Functions 
+console.log('1: will get location');
+// const city = whereAmI();
+// console.log(city);
+// whereAmI().then(city => console.log(`2: ${city}`))
+// .catch(err => console.error(`2: ${err.message}`))
+// .finally(() => console.log('3: finished getting location'));
+
+(async function() {
+  try {
+    const city = await whereAmI();
+    console.log(`2: ${city}`)
+  } catch (err) {
+    console.error(`2: ${err.message}`);
+  }
+  console.log('3: finished getting location');
+})();
+
+///////////////////Running Promises in Parallel
+const get3Countries = async function (c1, c2, c3) {
+  try {
+    // const [data1] = await getJSON(`https://restcountries.eu/rest/v2/name/${c1}`);
+    // const [data2] = await getJSON(`https://restcountries.eu/rest/v2/name/${c2}`);
+    // const [data3] = await getJSON(`https://restcountries.eu/rest/v2/name/${c3}`);
+    // console.log(data1.capital, data2.capital, data3.capital);
+
+    const data = await Promise.all([
+      getJSON(`https://restcountries.eu/rest/v2/name/${c1}`),
+      getJSON(`https://restcountries.eu/rest/v2/name/${c2}`),
+      getJSON(`https://restcountries.eu/rest/v2/name/${c3}`)]);
+    
+    console.log(data.map(d => d[0].capital));
+
+  } catch (err) {
+    console.error(err);
+  }
+};
+get3Countries('portugal', 'canada', 'tanzania');
