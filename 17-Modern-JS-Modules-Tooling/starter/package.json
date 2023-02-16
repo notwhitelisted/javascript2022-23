@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "leaflet": "^1.9.3",
+    "lodash-es": "^4.17.21"
+  }
+}
