@@ -44,6 +44,11 @@ console.log(lastPost); //output: promise pending. data hasn't arrived.
 //not clean.
 // lastPost.then(last => console.log(last));
 
-//top level await
+//top level await - await outside any async function will block 
+//entire module. 
 const lastPost2 = await getLastPost();
 console.log(lastPost2);
+
+
+
+/////////////////introduction to NPM
