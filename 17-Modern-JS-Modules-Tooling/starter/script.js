@@ -71,4 +71,4 @@ console.log(stateDeepClone);
 
 ///////////////////Bundling with Parcel and NPM scripts
 /* dev dependency - is a tool we need to build applications. no need to include in code.
-will appear as new field in json file. 
+will appear as new field in json file.
