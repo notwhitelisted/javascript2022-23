@@ -27,7 +27,8 @@ const controlRecipes = async function() {
     recipeView.render(model.state.recipe);
 
   } catch (err) {
-    console.error(err);
+    // console.error(err);
+    recipeView.renderError();
   }
 }
 
@@ -35,6 +36,7 @@ const init = function() {
   recipeView.addHandlerRender(controlRecipes);
 }
 init();
+
 
 // window.addEventListener('hashchange', showRecipe);
 // window.addEventListener('load', showRecipe);
