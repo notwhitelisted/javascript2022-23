@@ -7,6 +7,7 @@ import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
+import paginationView from './views/paginationView.js';
 
 //parcel
 if (module.hot) {
@@ -56,7 +57,7 @@ const controlSearchResults = async function () {
     console.log(err);
   }
 };
-controlSearchResults();
+// controlSearchResults();
 
 const controlPagination = function (goToPage) {
   // 1) Render NEW results
@@ -69,6 +70,7 @@ const controlPagination = function (goToPage) {
 const init = function() {
   recipeView.addHandlerRender(controlRecipes);
   searchView.addHandlerSearch(controlSearchResults);
+  paginationView.addHandlerClick(controlPagination);
 }
 init();
 
