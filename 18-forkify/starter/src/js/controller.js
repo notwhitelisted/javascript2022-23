@@ -3,9 +3,7 @@ import '/regenerator-runtime/runtime';
 
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
-
-const recipeContainer = document.querySelector('.recipe');
-
+import searchView from './views/searchView.js';
 
 // https://forkify-api.herokuapp.com/v2
 
@@ -52,6 +50,7 @@ const controlSearchResults = async function () {
     console.log(err);
   }
 };
+controlSearchResults();
 
 const controlPagination = function (goToPage) {
   // 1) Render NEW results
@@ -63,6 +62,7 @@ const controlPagination = function (goToPage) {
 
 const init = function() {
   recipeView.addHandlerRender(controlRecipes);
+  searchView.addHandlerSearch(controlSearchResults);
 }
 init();
 

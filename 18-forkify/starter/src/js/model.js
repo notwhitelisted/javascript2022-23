@@ -4,11 +4,15 @@ import { getJSON } from './helpers.js'
 
 export const state = {
     recipe: {},
+    search: {
+      query: '',
+      results: [],
+    }
 };
 
 export const loadRecipe = async function(id) {
     try {
-        const data = await getJSON(`${API_URL}/${id}`)
+        const data = await AJAX(`${API_URL}${id}?key=${KEY}`);
 
         const { recipe } = data.data;
         state.recipe = {
