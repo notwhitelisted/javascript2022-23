@@ -1,11 +1,17 @@
 import '/core-js/stable';
 import '/regenerator-runtime/runtime';
+import { async } from 'regenerator-runtime';
+
 
 import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
+import resultsView from './views/resultsView.js';
 
-// https://forkify-api.herokuapp.com/v2
+//parcel
+if (module.hot) {
+  module.hot.accept();
+}
 
 ///////////////////////////////////////
 
